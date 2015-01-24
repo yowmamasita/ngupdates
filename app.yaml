@@ -1,9 +1,9 @@
-application: cs-ferris    #.appspot.com
+application: ngupdates
 version: baseline
 
 runtime: python27
 api_version: 1
-threadsafe: yes 
+threadsafe: yes
 
 default_expiration: 1h
 
@@ -13,6 +13,7 @@ builtins:
 
 includes:
 - ferris/include.yaml
+- plugins/angular/include.yaml
 # If plugins require includes, put them here.
 
 libraries:
@@ -46,4 +47,4 @@ handlers:
 # Main script
 - url: .*
   script: main.main_app
-  login: required
+  login: optional
