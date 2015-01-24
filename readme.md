@@ -1,42 +1,41 @@
-The Ferris Framework
-====================
+Ferris Angular App Bootstrap
+============================
 
-Ferris is a web framework written in Python for App Engine, inspired by: Ruby on Rails, CakePHP, Django, and Flask. Unlike most other frameworks, Ferris is designed specifically for App Engine.
+Aw yiss, time to angularize your Ferris application with some attitude.
 
-For information and documentation:
+Here's what you do, gangster:
 
-    http://ferrisframework.org/
+1. Copy everything here into your Ferris project:
 
-For help and questions: 
+        cp -r angular-app-bootstrap/* name-of-your-project/
 
-    https://groups.google.com/forum/?fromgroups#!forum/ferris-framework
+2. Include the plugin's yaml in app.yaml:
 
+        includes:
+        - ferris/include.yaml
+        # If plugins require inculdes, put them here.
+        - plugins/angular/include.yaml
 
-Ferris 3
---------
+3. Optionally (if you want to test/use templates in angular-app directly) enable the plugin in routes.py:
 
-If you are starting a new project from scratch it is recommend to use [Ferris 3](https://github.com/jonparrott/Ferris3) instead. This repository will only receive bugfixes from the core team. 
+        # Plugins
+        plugins.enable('angular')
 
+3. Commit yo' stuff, sucka.
 
-Starting a new project
-----------------------
+Referencing Items in angular-app
+--------------------------------
 
-Download Ferris from bitbucket using the [downloads]() tab and choosing "tags" and downloading the newest version.
+Everything in ``/angular-app`` is mapped to the static file handler ``/ng``. So to include ``angular-app/controllers/test.js`` you'd use the url ``/ng/controllers/test.js``. 
 
-Then, just extract the downloaded zip file into your project directory (top-level, there should be an app.yaml in the top level of your project directory).
+Additionally, all templates under ``/angular-app/templates`` are available in the prefix ``/angular``, so in your Ferris templates you can include ``/angular-app/templates/meow.html`` with the path ``/angular/meow.html``. 
 
-You're ready to go! Just open your project directory and  run the app engine server.
+Installing JavaScript Libraries (Components)
+--------------------------------------------
 
-License
--------
+Use Bower like a real G! Just add to the depedencies in bower.json then run ``bower install`` from within 'angular-app' and it'll handle the rest. Also, yes, you *should* commit these to the repository.
 
-Ferris is licensed under the Apache License, Version 2.
+Rendering Templates Directly
+----------------------------
 
-Third-party libraries that are in the packages directory have varying licenses. Please check the license file that is included within each package.
-
- * WTForms: BSD
- * ProtoPigeon: Apache License v2
- * PyTZ: MIT
- * GData Client Library: Apache License v2
- * Google API Python Client Library: Apache License v2
- * OAuth2 Client: Apache License v2
+If you enabled the plugin you can render any template in ``angular-app/templates`` directly from the browser using jinja2 by loading up ``/ng-view/path/to/template.html`` (don't forget your ``{%raw%}`` tag).
