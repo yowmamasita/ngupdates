@@ -7,6 +7,7 @@ import time
 API_HOSTNAME = "http://hn.algolia.com"
 API_VERSION = "v1"
 FREQUENCY = 86400  # fetches daily
+POINTS = 50
 
 
 class Cron(Controller):
@@ -17,8 +18,10 @@ class Cron(Controller):
 
     @route_with('/api/cron/fetch_news')
     def api_fetch_news(self):
+        search = "angular"
         ts = int(time.time()) - FREQUENCY
-        action = "search_by_date?query=angular&tags=story&numericFilters=created_at_i>%s" % ts
+        num_filter = "points>%s,created_at_i>%s" % (POINTS, ts,)
+        action = "search_by_date?query=%s&tags=story&numericFilters=%s" % (search, num_filter,)
         url = "%s/api/%s/%s" % (API_HOSTNAME, API_VERSION, action,)
         r = requests.get(url)
         data = r.json()

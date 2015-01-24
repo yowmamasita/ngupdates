@@ -1,0 +1,4 @@
+cron:
+- description: fetch news from hackernews
+  url: /api/cron/fetch_news
+  schedule: every 24 hours
