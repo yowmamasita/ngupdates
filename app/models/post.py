@@ -1,7 +1,13 @@
 from ferris import Model, ndb
+from app.behaviors.unique import Unique
 
 
 class Post(Model):
+    class Meta:
+        behaviors = (Unique,)
+        uniqueness_identifier = 'objectID'
+
+    objectID = ndb.StringProperty()
     title = ndb.StringProperty()
     url = ndb.StringProperty()
 

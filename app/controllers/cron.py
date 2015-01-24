@@ -18,11 +18,15 @@ class Cron(Controller):
 
     @route_with('/api/cron/fetch_news')
     def api_fetch_news(self):
-        search = "angular"
-        ts = int(time.time()) - FREQUENCY
-        num_filter = "points>%s,created_at_i>%s" % (POINTS, ts,)
-        action = "search_by_date?query=%s&tags=story&numericFilters=%s" % (search, num_filter,)
-        url = "%s/api/%s/%s" % (API_HOSTNAME, API_VERSION, action,)
-        r = requests.get(url)
-        data = r.json()
-        print data
+        vectors = ("angular", "angularjs",)
+        for vector in vectors:
+            ret = fetch_news(vector)
+
+
+def fetch_news(search):
+    ts = int(time.time()) - FREQUENCY
+    num_filter = "points>%s,created_at_i>%s" % (POINTS, ts,)
+    action = "search_by_date?query=%s&tags=story&numericFilters=%s" % (search, num_filter,)
+    url = "%s/api/%s/%s" % (API_HOSTNAME, API_VERSION, action,)
+    r = requests.get(url)
+    return r.json()
